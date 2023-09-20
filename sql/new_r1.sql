@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`products` (
   `product` VARCHAR(100) NOT NULL,
   `price` INT NOT NULL DEFAULT '0',
   `stock` INT NOT NULL DEFAULT '0',
-  `like` INT NOT NULL DEFAULT 0,
+  `like` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`productId`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 8
@@ -42,12 +42,12 @@ CREATE TABLE IF NOT EXISTS `leafy`.`users` (
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `role` VARCHAR(11) NOT NULL DEFAULT 'user',
-  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `updatedAt` DATETIME(3) NOT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE INDEX `Users_email_key` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 22
+AUTO_INCREMENT = 27
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -81,25 +81,27 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `leafy`.`FavPRD`
+-- Table `leafy`.`favprd`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `leafy`.`FavPRD` (
-  `productId` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `leafy`.`favprd` (
   `userEmail` VARCHAR(100) NOT NULL,
-  INDEX `fk_FavPRD_products1_idx` (`productId` ASC) VISIBLE,
-  INDEX `fk_FavPRD_users1_idx` (`userEmail` ASC) VISIBLE,
+  `productId` INT NOT NULL,
   PRIMARY KEY (`productId`, `userEmail`),
-  CONSTRAINT `fk_FavPRD_products1`
+  INDEX `fk_FavPRD_users1_idx` (`userEmail` ASC) VISIBLE,
+  INDEX `fk_FavPRD_products1_idx` (`productId` ASC) VISIBLE,
+  CONSTRAINT `FavPrd_productId_fkey`
     FOREIGN KEY (`productId`)
     REFERENCES `leafy`.`products` (`productId`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_FavPRD_users1`
+  CONSTRAINT `FavPrd_userEmail_fkey`
     FOREIGN KEY (`userEmail`)
     REFERENCES `leafy`.`users` (`email`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
