@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`items` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB
-AUTO_INCREMENT = 20
+AUTO_INCREMENT = 25
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -116,6 +116,29 @@ CREATE TABLE IF NOT EXISTS `leafy`.`favprd` (
     REFERENCES `leafy`.`accounts` (`email`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `leafy`.`userinfo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `leafy`.`userinfo` (
+  `userId` INT NOT NULL,
+  `firstname` VARCHAR(50) NOT NULL,
+  `lastname` VARCHAR(50) NOT NULL,
+  `dob` DATE NOT NULL,
+  `phone` CHAR(11) NULL DEFAULT NULL,
+  `address` VARCHAR(500) NULL DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  INDEX `fk_userinfo_accounts1_idx` (`userId` ASC) VISIBLE,
+  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
+  CONSTRAINT `fk_userinfo_accounts1`
+    FOREIGN KEY (`userId`)
+    REFERENCES `leafy`.`accounts` (`userId`)
+    ON DELETE CASCADE
+    ON UPDATE RESTRICT)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
