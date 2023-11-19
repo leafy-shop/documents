@@ -1,5 +1,8 @@
-userId,name,email,password,role,status,createdAt,updatedAt
-1,admin,sahatat44@gmail.com,"$argon2id$v=19$m=64000,t=3,p=1$hGP3rVVZUk8Ki+c6BGDFeA$xXY/YrdYMF/8QE8kZFwuNQOJBTZIvxmkVEjNVMLirLs",admin,1,"2023-11-02 14:45:36","2023-11-03 07:43:48"
-2,aaeed,piraphat1234@gmail.com,"$argon2id$v=19$m=64000,t=3,p=1$bTMZV6437bU0t+2cYD+ctw$CCLIU5FFJo+EAj7ENAKXrqNxwO39DEDD8hqwaeStgQs",user,1,"2023-11-02 14:46:03","2023-11-02 14:46:03"
-3,zee,piraphat123@gmail.com,"$argon2id$v=19$m=64000,t=3,p=1$zqwVvOGeDtApK+39Jcc2tg$TnHQb2M05h2L1xBfon1Q8rQfdQ/eIPZV6A0HvbIQMWQ",supplier,1,"2023-11-02 14:46:06","2023-11-02 14:46:06"
-43,fern,panalee.fern@mail.kmutt.ac.t,"$argon2id$v=19$m=64000,t=3,p=1$aqxzKEY5+pyk0HCYLo/IXA$kcdfcE0tHceXl8GpJF3lSFf05Wj4TpEGhIpHDAVn7Fo",user,1,"2023-11-16 11:10:26","2023-11-16 11:10:26"
+userId,name,email,password,role,status,firstname,lastname,dob,phone,address,createdAt,updatedAt
+1,admin,sahatat44@gmail.com,"$argon2id$v=19$m=64000,t=3,p=1$hGP3rVVZUk8Ki+c6BGDFeA$xXY/YrdYMF/8QE8kZFwuNQOJBTZIvxmkVEjNVMLirLs",admin,1,sahathat,yingsakulkiet,2000-01-01,0900000000,"Asia Bangkok","2023-11-02 14:45:36","2023-11-17 16:17:23"
+2,aaeed,piraphat1234@gmail.com,"$argon2id$v=19$m=64000,t=3,p=1$bTMZV6437bU0t+2cYD+ctw$CCLIU5FFJo+EAj7ENAKXrqNxwO39DEDD8hqwaeStgQs",user,1,NULL,NULL,NULL,NULL,NULL,"2023-11-02 14:46:03","2023-11-02 14:46:03"
+3,zee,piraphat123@gmail.com,"$argon2id$v=19$m=64000,t=3,p=1$zqwVvOGeDtApK+39Jcc2tg$TnHQb2M05h2L1xBfon1Q8rQfdQ/eIPZV6A0HvbIQMWQ",supplier,1,piraphat,kakerd,2000-01-01,0901000000,"Asia Bangkok","2023-11-02 14:46:06","2023-11-17 09:12:23"
+56,fern,panalee.fern@mail.kmutt.ac.th,"$argon2id$v=19$m=64000,t=3,p=1$oJ9xMsc42v4bffyHR4HnMg$ek0pH4dCPocWrbRfnoJojvShHLmrUEmrAlb5T7vwSx0",user,1,panalee,palasri,2000-01-01,0902000000,"Asia Bangkok","2023-11-17 09:13:00","2023-11-17 09:13:00"
+66,fern1,panalee.fern1@mail.kmutt.ac.th,"$argon2id$v=19$m=64000,t=3,p=1$aqSpaOVf+jivRjXvdpn9ow$NqkxYIBjAmCAne+F0XNxCsN5D7dg8cQ89bS887KniXc",user,1,panalee,palasri,NULL,0902000001,"Asia Bangkok","2023-11-17 09:24:06","2023-11-17 09:24:06"
+70,fern3,panalee.fern3@mail.kmutt.ac.th,"$argon2id$v=19$m=64000,t=3,p=1$6aymEawz0jXKbJxbxVhgpA$OPTec57LHiZgg7akJAbMWu7ZJKcRV/I8D1QbPW2dKXc",user,1,panalee,palasri,2023-01-01,09020000003,"Asia Bangkok","2023-11-17 09:30:56","2023-11-17 09:30:56"
+73,fern5,panalee.fern5@mail.kmutt.ac.th,"$argon2id$v=19$m=64000,t=3,p=1$WXZqYK2dqHIXPgfHSNlgvA$dmNWAqMQCZ0Fm6EWlZGwvoozHmfnNWQoiItl4pUoT5I",user,1,panalee,palasri,2023-01-01,09020000055,"Asia Bangkok","2023-11-17 15:05:39","2023-11-17 15:05:39"
