@@ -137,7 +137,6 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_preview` (
   `size` CHAR(4) NOT NULL,
   `style` VARCHAR(50) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX `fk_item_preview_items1_idx` (`itemId` ASC) VISIBLE,
   INDEX `fk_item_preview_accounts1_idx` (`userEmail` ASC) VISIBLE,
   PRIMARY KEY (`itemPreviewId`),
