@@ -22,21 +22,21 @@ USE `leafy` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`accounts` (
   `userId` INT NOT NULL AUTO_INCREMENT,
+  `firstname` VARCHAR(50) NOT NULL,
+  `lastname` VARCHAR(50) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `role` VARCHAR(11) NOT NULL DEFAULT 'user',
   `status` TINYINT NOT NULL DEFAULT '1',
-  `firstname` VARCHAR(50) NOT NULL,
-  `lastname` VARCHAR(50) NOT NULL,
-  `phone` CHAR(11) NULL,
+  `phone` CHAR(11) NULL DEFAULT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userId`),
   UNIQUE INDEX `Users_email_key` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
-  UNIQUE INDEX `Fullname_UNIQUE` (`firstname` ASC, `lastname` ASC) VISIBLE)
+  UNIQUE INDEX `Fullname_UNIQUE` (`firstname` ASC, `lastname` ASC) INVISIBLE,
+  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 74
+AUTO_INCREMENT = 75
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -128,28 +128,28 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`item_preview`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`item_preview` (
+  `itemPreviewId` VARCHAR(16) NOT NULL,
   `itemId` INT NOT NULL,
   `userEmail` VARCHAR(50) NOT NULL,
   `comment` VARCHAR(500) NOT NULL,
   `rating` INT NOT NULL,
-  `like` INT NOT NULL DEFAULT 0,
+  `like` INT NOT NULL DEFAULT '0',
   `size` CHAR(4) NOT NULL,
   `style` VARCHAR(50) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX `fk_item_preview_items1_idx` (`itemId` ASC) VISIBLE,
   INDEX `fk_item_preview_accounts1_idx` (`userEmail` ASC) VISIBLE,
-  CONSTRAINT `fk_item_preview_items1`
-    FOREIGN KEY (`itemId`)
-    REFERENCES `leafy`.`items` (`itemId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  PRIMARY KEY (`itemPreviewId`),
   CONSTRAINT `fk_item_preview_accounts1`
     FOREIGN KEY (`userEmail`)
-    REFERENCES `leafy`.`accounts` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `leafy`.`accounts` (`email`),
+  CONSTRAINT `fk_item_preview_items1`
+    FOREIGN KEY (`itemId`)
+    REFERENCES `leafy`.`items` (`itemId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
