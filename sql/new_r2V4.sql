@@ -128,7 +128,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`item_preview`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`item_preview` (
-  `itemPreviewId` VARCHAR(16) NOT NULL,
+  `itemPreviewId` VARCHAR(32) GENERATED ALWAYS AS () VIRTUAL,
   `itemId` INT NOT NULL,
   `userEmail` VARCHAR(50) NOT NULL,
   `comment` VARCHAR(500) NOT NULL,
