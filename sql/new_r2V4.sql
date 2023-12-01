@@ -128,18 +128,18 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`item_preview`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`item_preview` (
-  `itemPreviewId` VARCHAR(32) GENERATED ALWAYS AS () VIRTUAL,
+  `itemPreviewId` VARCHAR(32) NOT NULL,
   `itemId` INT NOT NULL,
-  `userEmail` VARCHAR(50) NOT NULL,
+  `userEmail` VARCHAR(100) NOT NULL,
   `comment` VARCHAR(500) NOT NULL,
   `rating` INT NOT NULL,
   `like` INT NOT NULL DEFAULT '0',
   `size` CHAR(4) NOT NULL,
   `style` VARCHAR(50) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`itemPreviewId`),
   INDEX `fk_item_preview_items1_idx` (`itemId` ASC) VISIBLE,
   INDEX `fk_item_preview_accounts1_idx` (`userEmail` ASC) VISIBLE,
-  PRIMARY KEY (`itemPreviewId`),
   CONSTRAINT `fk_item_preview_accounts1`
     FOREIGN KEY (`userEmail`)
     REFERENCES `leafy`.`accounts` (`email`),
@@ -149,6 +149,27 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_preview` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `leafy`.`item_preview_like`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `leafy`.`item_preview_like` (
+  `userEmail` VARCHAR(100) NOT NULL,
+  `itemPreviewId` VARCHAR(32) NOT NULL,
+  INDEX `fk_item_preview_like_item_preview1_idx` (`itemPreviewId` ASC) VISIBLE,
+  PRIMARY KEY (`userEmail`, `itemPreviewId`),
+  CONSTRAINT `fk_item_preview_like_accounts1`
+    FOREIGN KEY (`userEmail`)
+    REFERENCES `leafy`.`accounts` (`email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_item_preview_like_item_preview1`
+    FOREIGN KEY (`itemPreviewId`)
+    REFERENCES `leafy`.`item_preview` (`itemPreviewId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
