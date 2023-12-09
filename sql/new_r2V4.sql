@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_preview` (
   CONSTRAINT `fk_item_preview_accounts1`
     FOREIGN KEY (`userEmail`)
     REFERENCES `leafy`.`accounts` (`email`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE RESTRICT,
   CONSTRAINT `fk_item_preview_items1`
     FOREIGN KEY (`itemId`)
