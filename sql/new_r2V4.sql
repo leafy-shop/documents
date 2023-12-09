@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`accounts` (
   UNIQUE INDEX `Fullname_UNIQUE` (`firstname` ASC, `lastname` ASC) INVISIBLE,
   UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 75
+AUTO_INCREMENT = 3003
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`items` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB
-AUTO_INCREMENT = 25
+AUTO_INCREMENT = 30005
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -142,10 +142,14 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_preview` (
   INDEX `fk_item_preview_accounts1_idx` (`userEmail` ASC) VISIBLE,
   CONSTRAINT `fk_item_preview_accounts1`
     FOREIGN KEY (`userEmail`)
-    REFERENCES `leafy`.`accounts` (`email`),
+    REFERENCES `leafy`.`accounts` (`email`)
+    ON DELETE CASCADE
+    ON UPDATE RESTRICT,
   CONSTRAINT `fk_item_preview_items1`
     FOREIGN KEY (`itemId`)
-    REFERENCES `leafy`.`items` (`itemId`))
+    REFERENCES `leafy`.`items` (`itemId`)
+    ON DELETE CASCADE
+    ON UPDATE RESTRICT)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -157,19 +161,17 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `leafy`.`item_preview_like` (
   `userEmail` VARCHAR(100) NOT NULL,
   `itemPreviewId` VARCHAR(32) NOT NULL,
-  INDEX `fk_item_preview_like_item_preview1_idx` (`itemPreviewId` ASC) VISIBLE,
   PRIMARY KEY (`userEmail`, `itemPreviewId`),
+  INDEX `fk_item_preview_like_item_preview1_idx` (`itemPreviewId` ASC) VISIBLE,
   CONSTRAINT `fk_item_preview_like_accounts1`
     FOREIGN KEY (`userEmail`)
-    REFERENCES `leafy`.`accounts` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `leafy`.`accounts` (`email`),
   CONSTRAINT `fk_item_preview_like_item_preview1`
     FOREIGN KEY (`itemPreviewId`)
-    REFERENCES `leafy`.`item_preview` (`itemPreviewId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `leafy`.`item_preview` (`itemPreviewId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
