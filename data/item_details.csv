@@ -1,65 +1,67 @@
-style,itemId,isOutOfStock,size
-"dark purple",8,0,"M,L"
-golden,15,0,"M,L,XL,XXL"
-"green cactus",30011,0,S
-"green cactus",300012,0,S
-"green cactus",300013,0,S
-"green cactus",300014,0,S
-"green cactus",300015,0,S
-"green cactus",300016,0,S
-"green cactus",300017,0,S
-"green cactus",300018,0,S
-"green cactus",300019,0,S
-"green cactus",300020,0,S
-"green cactus",300021,0,S
-"green cactus",300022,0,S
-"green cactus",300023,0,S
-"green cactus",300024,0,S
-"green cactus",300025,0,S
-"green cactus",300026,0,S
-"green cactus",300027,0,S
-"green cactus",300028,0,S
-"green cactus",300029,0,S
-"green cactus",300030,0,S
-"green cactus",300031,0,S
-"green cactus",300032,0,S
-"green cactus",300033,0,S
-"green cactus",300034,0,S
-"green cactus",300035,0,S
-"green cactus",300036,0,S
-"green cactus",300037,0,S
-"green cactus",300038,0,S
-"green cactus",300039,0,S
-"green cactus",300040,0,S
-"light green cactus",30011,0,"XS,S"
-"light green cactus",300012,0,"XS,S"
-"light green cactus",300013,0,"XS,S"
-"light green cactus",300014,0,"XS,S"
-"light green cactus",300015,0,"XS,S"
-"light green cactus",300016,0,"XS,S"
-"light green cactus",300017,0,"XS,S"
-"light green cactus",300018,0,"XS,S"
-"light green cactus",300019,0,"XS,S"
-"light green cactus",300020,0,"XS,S"
-"light green cactus",300021,0,"XS,S"
-"light green cactus",300022,0,"XS,S"
-"light green cactus",300023,0,"XS,S"
-"light green cactus",300024,0,"XS,S"
-"light green cactus",300025,0,"XS,S"
-"light green cactus",300026,0,"XS,S"
-"light green cactus",300027,0,"XS,S"
-"light green cactus",300028,0,"XS,S"
-"light green cactus",300029,0,"XS,S"
-"light green cactus",300030,0,"XS,S"
-"light green cactus",300031,0,"XS,S"
-"light green cactus",300032,0,"XS,S"
-"light green cactus",300033,0,"XS,S"
-"light green cactus",300034,0,"XS,S"
-"light green cactus",300035,0,"XS,S"
-"light green cactus",300036,0,"XS,S"
-"light green cactus",300037,0,"XS,S"
-"light green cactus",300038,0,"XS,S"
-"light green cactus",300039,0,"XS,S"
-"light green cactus",300040,0,"XS,S"
-"light purple",8,1,"S,M"
-purple,8,1,"S,M,L"
+"style";"itemId";"stock";"size"
+"blue rose";8;1;""
+"golden";15;0;""
+"green cactus";30011;0;""
+"green cactus";300012;0;""
+"green cactus";300013;0;""
+"green cactus";300014;0;""
+"green cactus";300015;0;""
+"green cactus";300016;0;""
+"green cactus";300017;0;""
+"green cactus";300018;0;""
+"green cactus";300019;0;""
+"green cactus";300020;0;""
+"green cactus";300021;0;""
+"green cactus";300022;0;""
+"green cactus";300023;0;""
+"green cactus";300024;0;""
+"green cactus";300025;0;""
+"green cactus";300026;0;""
+"green cactus";300027;0;""
+"green cactus";300028;0;""
+"green cactus";300029;0;""
+"green cactus";300030;0;""
+"green cactus";300031;0;""
+"green cactus";300032;0;""
+"green cactus";300033;0;""
+"green cactus";300034;0;""
+"green cactus";300035;0;""
+"green cactus";300036;0;""
+"green cactus";300037;0;""
+"green cactus";300038;0;""
+"green cactus";300039;0;""
+"green cactus";300040;0;""
+"green cactus";300047;0;"S"
+"light green cactus";30011;0;""
+"light green cactus";300012;0;""
+"light green cactus";300013;0;""
+"light green cactus";300014;0;""
+"light green cactus";300015;0;""
+"light green cactus";300016;0;""
+"light green cactus";300017;0;""
+"light green cactus";300018;0;""
+"light green cactus";300019;0;""
+"light green cactus";300020;0;""
+"light green cactus";300021;0;""
+"light green cactus";300022;0;""
+"light green cactus";300023;0;""
+"light green cactus";300024;0;""
+"light green cactus";300025;0;""
+"light green cactus";300026;0;""
+"light green cactus";300027;0;""
+"light green cactus";300028;0;""
+"light green cactus";300029;0;""
+"light green cactus";300030;0;""
+"light green cactus";300031;0;""
+"light green cactus";300032;0;""
+"light green cactus";300033;0;""
+"light green cactus";300034;0;""
+"light green cactus";300035;0;""
+"light green cactus";300036;0;""
+"light green cactus";300037;0;""
+"light green cactus";300038;0;""
+"light green cactus";300039;0;""
+"light green cactus";300040;0;""
+"light green cactus";300047;0;"XS,S"
+"purple";8;10;""
+"red rose";8;0;""
