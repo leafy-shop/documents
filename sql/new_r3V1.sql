@@ -155,8 +155,8 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_details` (
   `style` VARCHAR(50) NOT NULL,
   `itemId` INT NOT NULL,
   `stock` INT NOT NULL DEFAULT '0',
-  `size` VARCHAR(4) NOT NULL,
-  PRIMARY KEY (`style`, `itemId`, `size`),
+  `size` VARCHAR(50) NULL,
+  PRIMARY KEY (`style`, `itemId`),
   INDEX `fk_table1_items1_idx` (`itemId` ASC) VISIBLE,
   CONSTRAINT `fk_table1_items1`
     FOREIGN KEY (`itemId`)
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_reviews` (
   `like` INT NOT NULL DEFAULT '0',
   `style` VARCHAR(50) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `size` VARCHAR(4) NOT NULL,
+  `size` VARCHAR(4) NULL,
   PRIMARY KEY (`itemReviewId`),
   INDEX `fk_item_preview_items1_idx` (`itemId` ASC) VISIBLE,
   INDEX `fk_item_preview_accounts1_idx` (`userEmail` ASC) VISIBLE,
@@ -224,7 +224,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `leafy`.`payments` (
   `paymentId` CHAR(32) NOT NULL,
   `bankname` VARCHAR(100) NOT NULL,
-  `bankCode` CHAR(10) NOT NULL,
+  `bankCode` VARCHAR(10) NOT NULL,
   `bankAccount` VARCHAR(16) NOT NULL,
   `userEmail` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`paymentId`),
