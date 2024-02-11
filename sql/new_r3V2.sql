@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS `leafy`.`accounts` (
   PRIMARY KEY (`userId`),
   UNIQUE INDEX `Users_email_key` (`email` ASC) VISIBLE,
   UNIQUE INDEX `Fullname_UNIQUE` (`firstname` ASC, `lastname` ASC) INVISIBLE,
-  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE)
+  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 3006
 DEFAULT CHARACTER SET = utf8mb4
@@ -62,8 +63,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`addresses` (
   CONSTRAINT `fk_addresses_accounts1`
     FOREIGN KEY (`userEmail`)
     REFERENCES `leafy`.`accounts` (`email`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT)
+    ON DELETE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -81,7 +81,8 @@ CREATE TABLE IF NOT EXISTS `leafy`.`items` (
   `tag` VARCHAR(500) NOT NULL,
   `totalRating` DECIMAL(2,1) NOT NULL DEFAULT '0.0',
   `sold` INT NOT NULL DEFAULT '0',
-  `price` DECIMAL(32,2) NOT NULL DEFAULT '0.00',
+  `minPrice` DECIMAL(32,2) NOT NULL DEFAULT '0.00',
+  `maxPrice` DECIMAL(32,2) NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`itemId`),
@@ -143,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`favprd` (
     FOREIGN KEY (`userEmail`)
     REFERENCES `leafy`.`accounts` (`email`)
     ON DELETE CASCADE
-    ON UPDATE RESTRICT)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -156,87 +157,14 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_details` (
   `style` VARCHAR(50) NOT NULL,
   `itemId` INT NOT NULL,
   `stock` INT NOT NULL DEFAULT '0',
-  `size` VARCHAR(50) NULL DEFAULT NULL,
-  PRIMARY KEY (`style`, `itemId`),
+  `size` VARCHAR(50) NOT NULL DEFAULT 'No',
+  `priceEach` DECIMAL(32,2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`style`, `itemId`, `size`),
   INDEX `fk_table1_items1_idx` (`itemId` ASC) VISIBLE,
   CONSTRAINT `fk_table1_items1`
     FOREIGN KEY (`itemId`)
     REFERENCES `leafy`.`items` (`itemId`)
     ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `leafy`.`item_reviews`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `leafy`.`item_reviews` (
-  `itemReviewId` VARCHAR(32) NOT NULL,
-  `itemId` INT NOT NULL,
-  `userEmail` VARCHAR(100) NOT NULL,
-  `comment` VARCHAR(500) NOT NULL,
-  `rating` INT NOT NULL,
-  `like` INT NOT NULL DEFAULT '0',
-  `style` VARCHAR(50) NOT NULL,
-  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `size` VARCHAR(4) NULL DEFAULT NULL,
-  PRIMARY KEY (`itemReviewId`),
-  INDEX `fk_item_preview_items1_idx` (`itemId` ASC) VISIBLE,
-  INDEX `fk_item_preview_accounts1_idx` (`userEmail` ASC) VISIBLE,
-  CONSTRAINT `fk_item_preview_accounts1`
-    FOREIGN KEY (`userEmail`)
-    REFERENCES `leafy`.`accounts` (`email`)
-    ON DELETE CASCADE
-    ON UPDATE RESTRICT,
-  CONSTRAINT `fk_item_preview_items1`
-    FOREIGN KEY (`itemId`)
-    REFERENCES `leafy`.`items` (`itemId`)
-    ON DELETE CASCADE
-    ON UPDATE RESTRICT)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `leafy`.`item_review_likes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `leafy`.`item_review_likes` (
-  `userEmail` VARCHAR(100) NOT NULL,
-  `itemReviewId` VARCHAR(32) NOT NULL,
-  PRIMARY KEY (`userEmail`, `itemReviewId`),
-  INDEX `fk_item_preview_like_item_preview1_idx` (`itemReviewId` ASC) VISIBLE,
-  CONSTRAINT `fk_item_preview_like_accounts1`
-    FOREIGN KEY (`userEmail`)
-    REFERENCES `leafy`.`accounts` (`email`)
-    ON DELETE CASCADE
-    ON UPDATE RESTRICT,
-  CONSTRAINT `fk_item_preview_like_item_preview1`
-    FOREIGN KEY (`itemReviewId`)
-    REFERENCES `leafy`.`item_reviews` (`itemReviewId`)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `leafy`.`payments`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `leafy`.`payments` (
-  `paymentId` CHAR(32) NOT NULL,
-  `bankname` VARCHAR(100) NOT NULL,
-  `bankCode` VARCHAR(10) NOT NULL,
-  `bankAccount` VARCHAR(16) NOT NULL,
-  `userEmail` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`paymentId`),
-  INDEX `fk_payments_accounts1_idx` (`userEmail` ASC) VISIBLE,
-  CONSTRAINT `fk_payments_accounts1`
-    FOREIGN KEY (`userEmail`)
-    REFERENCES `leafy`.`accounts` (`email`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -261,7 +189,79 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_events` (
     REFERENCES `leafy`.`items` (`itemId`)
     ON DELETE CASCADE
     ON UPDATE RESTRICT)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `leafy`.`item_reviews`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `leafy`.`item_reviews` (
+  `itemReviewId` VARCHAR(32) NOT NULL,
+  `itemId` INT NOT NULL,
+  `userEmail` VARCHAR(100) NOT NULL,
+  `comment` VARCHAR(500) NOT NULL,
+  `rating` INT NOT NULL,
+  `like` INT NOT NULL DEFAULT '0',
+  `style` VARCHAR(50) NOT NULL,
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `size` VARCHAR(4) NULL DEFAULT NULL,
+  PRIMARY KEY (`itemReviewId`),
+  INDEX `fk_item_preview_items1_idx` (`itemId` ASC) VISIBLE,
+  INDEX `fk_item_preview_accounts1_idx` (`userEmail` ASC) VISIBLE,
+  CONSTRAINT `fk_item_preview_accounts1`
+    FOREIGN KEY (`userEmail`)
+    REFERENCES `leafy`.`accounts` (`email`)
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_item_preview_items1`
+    FOREIGN KEY (`itemId`)
+    REFERENCES `leafy`.`items` (`itemId`)
+    ON DELETE CASCADE
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `leafy`.`item_review_likes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `leafy`.`item_review_likes` (
+  `userEmail` VARCHAR(100) NOT NULL,
+  `itemReviewId` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`userEmail`, `itemReviewId`),
+  INDEX `fk_item_preview_like_item_preview1_idx` (`itemReviewId` ASC) VISIBLE,
+  CONSTRAINT `fk_item_preview_like_accounts1`
+    FOREIGN KEY (`userEmail`)
+    REFERENCES `leafy`.`accounts` (`email`)
+    ON DELETE CASCADE,
+  CONSTRAINT `fk_item_preview_like_item_preview1`
+    FOREIGN KEY (`itemReviewId`)
+    REFERENCES `leafy`.`item_reviews` (`itemReviewId`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `leafy`.`payments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `leafy`.`payments` (
+  `paymentId` CHAR(32) NOT NULL,
+  `bankname` VARCHAR(100) NOT NULL,
+  `bankCode` VARCHAR(10) NOT NULL,
+  `bankAccount` VARCHAR(16) NOT NULL,
+  `userEmail` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`paymentId`),
+  INDEX `fk_payments_accounts1_idx` (`userEmail` ASC) VISIBLE,
+  CONSTRAINT `fk_payments_accounts1`
+    FOREIGN KEY (`userEmail`)
+    REFERENCES `leafy`.`accounts` (`email`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
