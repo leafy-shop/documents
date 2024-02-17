@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_details` (
   `style` VARCHAR(50) NOT NULL DEFAULT 'No',
   `itemId` INT NOT NULL,
   `stock` INT NOT NULL DEFAULT '0',
-  `size` CHAR(4) NOT NULL DEFAULT 'No',
+  `size` VARCHAR(50) NOT NULL DEFAULT 'No',
   `price` DECIMAL(32,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`style`, `itemId`, `size`),
   INDEX `fk_table1_items1_idx` (`itemId` ASC) VISIBLE,
