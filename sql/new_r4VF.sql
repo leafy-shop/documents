@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`contents` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -204,7 +204,8 @@ CREATE TABLE IF NOT EXISTS `leafy`.`content_likes` (
     ON UPDATE CASCADE,
   CONSTRAINT `fk_gallery_comment_likes_contents1`
     FOREIGN KEY (`contentId`)
-    REFERENCES `leafy`.`contents` (`contentId`))
+    REFERENCES `leafy`.`contents` (`contentId`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -251,7 +252,8 @@ CREATE TABLE IF NOT EXISTS `leafy`.`gallery_comments` (
     REFERENCES `leafy`.`accounts` (`username`),
   CONSTRAINT `fk_gallery_comments_contents1`
     FOREIGN KEY (`contentId`)
-    REFERENCES `leafy`.`contents` (`contentId`))
+    REFERENCES `leafy`.`contents` (`contentId`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -319,16 +321,20 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_reviews` (
   `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `style` VARCHAR(20) NOT NULL,
   `itemId` INT NOT NULL,
+  `orderId` VARCHAR(53) NOT NULL DEFAULT '',
   PRIMARY KEY (`itemReviewId`),
   INDEX `fk_item_preview_accounts1_idx` (`username` ASC) VISIBLE,
-  INDEX `fk_item_reviews_item_details1_idx` (`itemId` ASC) VISIBLE,
+  INDEX `fk_item_reviews_orders1_idx` (`orderId` ASC) VISIBLE,
+  INDEX `fk_item_review_items1_idx` (`itemId` ASC) VISIBLE,
   CONSTRAINT `fk_item_preview_accounts1`
     FOREIGN KEY (`username`)
     REFERENCES `leafy`.`accounts` (`username`)
     ON UPDATE RESTRICT,
-  CONSTRAINT `fk_item_reviews_item_details1`
+  CONSTRAINT `fk_item_review_items1`
     FOREIGN KEY (`itemId`)
-    REFERENCES `leafy`.`items` (`itemId`))
+    REFERENCES `leafy`.`items` (`itemId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -359,11 +365,14 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`orders`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`orders` (
-  `orderId` VARCHAR(74) NOT NULL,
+  `orderId` VARCHAR(53) NOT NULL,
   `customerName` VARCHAR(20) NOT NULL,
   `address` VARCHAR(500) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `shippedDate` DATETIME NULL DEFAULT NULL,
+  `paidOrderDate` DATETIME NULL DEFAULT NULL,
+  `shippedOrderDate` DATETIME NULL DEFAULT NULL,
+  `receivedOrderDate` DATETIME NULL DEFAULT NULL,
+  `rateOrderDate` DATETIME NULL DEFAULT NULL,
   `status` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`orderId`),
   INDEX `fk_orders_accounts1_idx` (`customerName` ASC) VISIBLE,
@@ -386,15 +395,14 @@ CREATE TABLE IF NOT EXISTS `leafy`.`order_details` (
   `priceEach` DECIMAL(32,2) NOT NULL DEFAULT '0.00',
   `itemStyle` VARCHAR(20) NOT NULL,
   `itemId` INT NOT NULL,
-  `isReview` TINYINT NOT NULL DEFAULT '0',
-  INDEX `fk_order_detail_order1_idx` (`orderId` ASC) VISIBLE,
   INDEX `fk_order_details_item_details1_idx` (`itemId` ASC) VISIBLE,
-  CONSTRAINT `fk_order_detail_order1`
-    FOREIGN KEY (`orderId`)
-    REFERENCES `leafy`.`orders` (`orderId`),
+  INDEX `fk_order_details_orders1_idx` (`orderId` ASC) VISIBLE,
   CONSTRAINT `fk_order_details_item_details1`
     FOREIGN KEY (`itemId`)
-    REFERENCES `leafy`.`items` (`itemId`))
+    REFERENCES `leafy`.`items` (`itemId`),
+  CONSTRAINT `fk_order_details_orders1`
+    FOREIGN KEY (`orderId`)
+    REFERENCES `leafy`.`orders` (`orderId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
