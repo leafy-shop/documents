@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`items` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB
-AUTO_INCREMENT = 300054
+AUTO_INCREMENT = 300055
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -374,6 +374,8 @@ CREATE TABLE IF NOT EXISTS `leafy`.`orders` (
   `receivedOrderDate` DATETIME NULL DEFAULT NULL,
   `rateOrderDate` DATETIME NULL DEFAULT NULL,
   `status` VARCHAR(20) NOT NULL,
+  `orderGroupId` VARCHAR(33) NOT NULL DEFAULT '',
+  `phone` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`orderId`),
   INDEX `fk_orders_accounts1_idx` (`customerName` ASC) VISIBLE,
   CONSTRAINT `fk_orders_accounts1`
@@ -388,7 +390,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`order_details`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`order_details` (
-  `orderId` VARCHAR(53) NOT NULL,
+  `orderId` VARCHAR(33) NOT NULL,
   `itemSize` VARCHAR(50) NOT NULL,
   `qtyOrder` INT NOT NULL DEFAULT '1',
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -402,7 +404,8 @@ CREATE TABLE IF NOT EXISTS `leafy`.`order_details` (
     REFERENCES `leafy`.`items` (`itemId`),
   CONSTRAINT `fk_order_details_orders1`
     FOREIGN KEY (`orderId`)
-    REFERENCES `leafy`.`orders` (`orderId`))
+    REFERENCES `leafy`.`orders` (`orderId`)
+    ON DELETE RESTRICT)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
