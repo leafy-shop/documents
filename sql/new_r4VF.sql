@@ -195,6 +195,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `leafy`.`content_likes` (
   `contentId` INT NOT NULL,
   `username` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`contentId`, `username`),
   INDEX `fk_gallery_comment_likes_accounts1_idx` (`username` ASC) VISIBLE,
   INDEX `fk_gallery_comment_likes_contents1_idx` (`contentId` ASC) VISIBLE,
   CONSTRAINT `fk_gallery_comment_likes_accounts1`
@@ -346,7 +347,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `leafy`.`item_review_likes` (
   `username` VARCHAR(20) NOT NULL,
   `itemReviewId` VARCHAR(53) NOT NULL,
-  PRIMARY KEY (`username`),
+  PRIMARY KEY (`username`, `itemReviewId`),
   INDEX `fk_item_preview_like_item_preview1_idx` (`itemReviewId` ASC) VISIBLE,
   CONSTRAINT `fk_item_preview_like_accounts1`
     FOREIGN KEY (`username`)
