@@ -243,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`gallery_comments` (
   `commentId` VARCHAR(37) NOT NULL,
   `username` VARCHAR(20) NOT NULL,
   `contentId` INT NOT NULL,
-  `comment` VARCHAR(45) NOT NULL,
+  `comment` VARCHAR(500) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`commentId`),
   INDEX `fk_gallery_comments_accounts1_idx` (`username` ASC) VISIBLE,
