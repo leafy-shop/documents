@@ -49,7 +49,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`addresses`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`addresses` (
-  `addressId` VARCHAR(53) NOT NULL,
+  `addressId` VARCHAR(37) NOT NULL,
   `addressname` VARCHAR(50) NOT NULL,
   `address` VARCHAR(50) NOT NULL,
   `province` VARCHAR(20) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`items` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB
-AUTO_INCREMENT = 300055
+AUTO_INCREMENT = 300056
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -119,7 +119,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`session_cart`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`session_cart` (
-  `sessionCartId` VARCHAR(53) NOT NULL,
+  `sessionCartId` VARCHAR(37) NOT NULL,
   `username` VARCHAR(20) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -139,8 +139,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`carts`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`carts` (
-  `cartId` VARCHAR(53) NOT NULL,
-  `sessionId` VARCHAR(53) NOT NULL,
+  `cartId` VARCHAR(37) NOT NULL,
+  `sessionId` VARCHAR(37) NOT NULL,
   `itemSize` VARCHAR(50) NOT NULL,
   `qty` INT NOT NULL DEFAULT '0',
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`contents` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 3726
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -240,7 +240,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`gallery_comments`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`gallery_comments` (
-  `commentId` VARCHAR(53) NOT NULL,
+  `commentId` VARCHAR(37) NOT NULL,
   `username` VARCHAR(20) NOT NULL,
   `contentId` INT NOT NULL,
   `comment` VARCHAR(45) NOT NULL,
@@ -310,7 +310,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`item_reviews`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`item_reviews` (
-  `itemReviewId` VARCHAR(53) NOT NULL,
+  `itemReviewId` VARCHAR(37) NOT NULL,
   `username` VARCHAR(20) NOT NULL,
   `size` VARCHAR(50) NOT NULL,
   `comment` VARCHAR(500) NOT NULL,
@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `leafy`.`item_reviews` (
   `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `style` VARCHAR(20) NOT NULL,
   `itemId` INT NOT NULL,
-  `orderId` VARCHAR(53) NOT NULL DEFAULT '',
+  `orderId` VARCHAR(33) NOT NULL DEFAULT '',
   PRIMARY KEY (`itemReviewId`),
   INDEX `fk_item_preview_accounts1_idx` (`username` ASC) VISIBLE,
   INDEX `fk_item_reviews_orders1_idx` (`orderId` ASC) VISIBLE,
@@ -346,7 +346,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`item_review_likes` (
   `username` VARCHAR(20) NOT NULL,
-  `itemReviewId` VARCHAR(53) NOT NULL,
+  `itemReviewId` VARCHAR(37) NOT NULL,
   PRIMARY KEY (`username`, `itemReviewId`),
   INDEX `fk_item_preview_like_item_preview1_idx` (`itemReviewId` ASC) VISIBLE,
   CONSTRAINT `fk_item_preview_like_accounts1`
@@ -366,7 +366,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`orders`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`orders` (
-  `orderId` VARCHAR(53) NOT NULL,
+  `orderId` VARCHAR(33) NOT NULL,
   `customerName` VARCHAR(20) NOT NULL,
   `address` VARCHAR(500) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -416,7 +416,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `leafy`.`payments`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `leafy`.`payments` (
-  `paymentId` VARCHAR(53) NOT NULL,
+  `paymentId` VARCHAR(37) NOT NULL,
   `bankname` VARCHAR(50) NOT NULL,
   `bankCode` VARCHAR(10) NOT NULL,
   `bankAccount` VARCHAR(16) NOT NULL,
